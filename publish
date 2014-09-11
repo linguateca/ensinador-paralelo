@@ -1,0 +1,3 @@
+#!/bin/sh
+
+rsync -aSPvz . dinis2:EnsinadorParalelo/ --exclude=.git --delete-after

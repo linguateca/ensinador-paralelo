@@ -9,8 +9,10 @@
     );
 </script>
 
-<!-- % use Dumper % >
-< % Dumper.dump_html(concs) % -->
+<% IF mydebug %>
+   <% use Dumper %>
+   <% Dumper.dump_html(mydebug) %>
+<% END %>
 
 <p>Expressão de pesquisa: <tt><% query.left || "&mdash;" %> &bullet; <% query.right || "&mdash;" %></tt></p>
 

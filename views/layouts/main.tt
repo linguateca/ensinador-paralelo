@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-type" content="text/html; charset=<% settings.charset %>" />
-<title>EnsinadorParalelo</title>
+<title>Ensinador Paralelo</title>
 <link rel="stylesheet" href="<% request.uri_base %>/css/style.css" />
 
 <!-- Grab jQuery from a CDN, fall back to local if necessary -->
@@ -14,9 +14,15 @@
 
 </head>
 <body>
-<% content %>
-<div id="footer">
-Powered by <a href="http://perldancer.org/">Dancer2</a> <% dancer_version %>
+<div id="linguateca">
+	<div>
+		<a href="http://linguateca.pt">Linguateca</a>
+	</div>
+	<h1>Ensinador Paralelo</h1>
 </div>
+<input type="hidden" id="uri_base" value="<% request.uri_base %>"/>
+<div id="contents">
+	<% content %>
+	</div>
 </body>
 </html>

@@ -1,3 +1,13 @@
 #!/bin/sh
 
-rsync -aSPvz . dinis2:EnsinadorParalelo/ --exclude=.git --delete-after
+rsync -aSPvz . dinis2:EnsinadorParalelo/ --exclude=config.yml --exclude=.git --delete-after 
+
+case $1 in
+	"restart" )
+	ssh -t dinis2 "sudo service httpd restart"
+	;;
+	* )
+	;;
+esac
+
+

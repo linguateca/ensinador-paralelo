@@ -1,147 +1,83 @@
+<h2>Iniciar Exercício Paralelo</h2>
 
-<!--
-    Credit goes to the Ruby on Rails team for this page
-    has been heavily based on the default Rails page that is
-    built with a scaffolded application.
+<script type="text/javascript">
 
-    Thanks a lot to them for their work.
+  var corpora = <% json_corpora %>;
 
-    See Ruby on Rails if you want a kickass framework in Ruby:
-    http://www.rubyonrails.org/
--->
+  function update_step2() {
+    var corpusName = $("#corpus").val();
+    var corpusData = corpora[corpusName];
+    var languages  = corpusData["languages"];
+    // alert(JSON.stringify(languages));
+    $("#l1").html(languages[0]);
+    $("#l2").html(languages[1]);
 
-<div id="page">
-      <div id="sidebar">
-        <ul id="sidebar-items">
-          <li>
-            <h3>Join the community</h3>
-            <ul class="links">
+    $("#language").html("");
+    $("#language").append($("<option>").attr('value', 0).text(languages[0]));
+    $("#language").append($("<option>").attr('value', 1).text(languages[1]));
+  }
 
-              <li><a href="http://perldancer.org/">PerlDancer</a></li>
-              <li><a href="http://twitter.com/PerlDancer/">Official Twitter</a></li>
-              <li><a href="https://github.com/PerlDancer/Dancer2/">GitHub Community</a></li>
-            </ul>
-          </li>
+  function update_step3() {
+      var direction = $("#language").val();
+      var corpusName = $("#corpus").val();
+      var corpusData = corpora[corpusName];
+      var languages  = corpusData["languages"];
 
-          <li>
-            <h3>Browse the documentation</h3>
+      if (direction == 0) {
+          $("#l1").html(languages[0]);
+          $("#l2").html(languages[1]);
+      } else {
+          $("#l1").html(languages[1]);
+          $("#l2").html(languages[0]);
+      }
+  }
 
-            <ul class="links">
-              <li><a
-              href="https://metacpan.org/pod/Dancer2::Manual">Introduction</a></li>
-              <li><a href="https://metacpan.org/pod/Dancer2::Cookbook">Cookbook</a></li>
-              <li><a
-              href="https://metacpan.org/pod/Dancer2::Tutorial"
-              title="a tutorial to build a small blog engine with Dancer">Tutorial</a></li>
-            </ul>
-          </li>
+  $(
+    function() {
+      $("#corpus").change( update_step2 );
+      $("#language").change( update_step3 );
+      update_step2();
 
-          <li>
-            <h3>Your application's environment</h3>
+      $("#form").submit( function() {
+        var l1 = $("#left").val();
+        var l2 = $("#right").val();
+        if (l1 == "" && l2 == "") {
+          alert("Introduza pelo menos uma expressão de pesquisa");
+          return false;
+        } else {
+          return true;
+        }
+      });
+    }
+  );
+</script>
 
-            <ul>
-                <li>Location: <code>/Users/ambs/MyReps/Linguateca/EnsinadorParalelo</code></li>
-                <li>Template engine: <code><% settings.template %></code></li>
-                <li>Logger: <code><% settings.logger %></code></li>
-                <li>Environment: <code><% settings.environment %></code></li>
-            </ul>
-
-          </li>
-        </ul>
-
-      </div>
-
-      <div id="content">
-        <div id="header">
-          <h1>Perl is dancing</h1>
-          <h2>You&rsquo;ve joined the dance floor!</h2>
-        </div>
-
-        <div id="getting-started">
-          <h1>Getting started</h1>
-          <h2>Here&rsquo;s how to get dancing:</h2>
-
-          <h3><a href="#" id="about_env_link">About your application's environment</a></h3>
-
-          <div id="about-content" style="display: none;">
-            <table>
-                <tbody>
-                <tr>
-                    <td>Perl version</td>
-                    <td><tt><% perl_version %></tt></td>
-                </tr>
-                <tr>
-                    <td>Dancer2 version</td>
-                    <td><tt><% dancer_version %></tt></td>
-                </tr>
-                <tr>
-                    <td>Backend</td>
-                    <td><tt><% settings.apphandler %></tt></td>
-                </tr>
-                <tr>
-                    <td>Appdir</td>
-                    <td><tt>/Users/ambs/MyReps/Linguateca/EnsinadorParalelo</tt></td>
-                </tr>
-                <tr>
-                    <td>Template engine</td>
-                    <td><tt><% settings.template %></tt></td>
-                </tr>
-                <tr>
-                    <td>Logger engine</td>
-                    <td><tt><% settings.logger %></tt></td>
-                </tr>
-                <tr>
-                    <td>Running environment</td>
-                    <td><tt><% settings.environment %></tt></td>
-                </tr>
-                </tbody>
-            </table>
-          </div>
-
-    <script type="text/javascript">
-    $('#about_env_link').click(function() {
-        $('#about-content').slideToggle('fast', function() {
-            // ok
-        });
-        return false;
-    });
-    </script>
-
-
-          <ol>
-            <li>
-              <h2>Tune your application</h2>
-
-              <p>
-              Your application is configured via a global configuration file,
-              <tt>config.yml</tt> and an "environment" configuration file,
-              <tt>environments/development.yml</tt>. Edit those files if you
-              want to change the settings of your application.
-              </p>
-            </li>
-
-            <li>
-              <h2>Add your own routes</h2>
-
-              <p>
-              The default route that displays this page can be removed,
-              it's just here to help you get started. The template used to
-              generate this content is located in
-              <code>views/index.tt</code>.
-              You can add some routes to <tt>lib/EnsinadorParalelo.pm</tt>.
-              </p>
-            </li>
-
-            <li>
-                <h2>Enjoy web development again</h2>
-
-                <p>
-                Once you've made your changes, restart your standalone server
-                (bin/app.pl) and you're ready to test your web application.
-                </p>
-            </li>
-
-          </ol>
-        </div>
-      </div>
+<form id="form" action="<% request.uri_base %>/concs" method="POST">
+<ol>
+  <li>Escolha um corpo paralelo: 
+    <select id="corpus" name="corpus">
+      <% FOREACH c IN corpora.keys.sort %>
+      <option><% c %></option>
+      <% END %>
+    </select>
+  </li>
+  <li>Indique língua para exercício:
+    <select id="language" name="language">
+      <option>---</option>
+    </select>
+  <li>
+    Introduza expressões de Pesquisa:
+    <div>
+      <label id="l1" for="left">l1</label>
+      <input size="50" type="text" id="left" name="left"/>
     </div>
+    <div>
+      <label id="l2" for="right">l2</label>
+      <input size="50" type="right" id="right" name="right"/>
+    </div>
+  </li>
+  <li>
+    <input type="submit" value="Procurar!"/>
+  </li>
+</ol>
+</form>

@@ -1,0 +1,42 @@
+
+<script type="text/javascript">
+    $(
+        function() {
+            $(".selector").change(function(e) {
+                $(this).parent().parent().toggleClass("selected");
+            });
+        }
+    );
+</script>
+
+<!-- % use Dumper % >
+< % Dumper.dump_html(concs) % -->
+
+<p>Expressão de pesquisa: <tt><% query.left || "&mdash;" %> &bullet; <% query.right || "&mdash;" %></tt></p>
+
+<% UNLESS concs.size %>
+<p>Nenhum resultado encontrado.</p>
+<% ELSE %>
+<form method="POST" action="<% request.uri_base %>/concs/save">
+<input type="submit" name="submit" value="Guardar"/>
+<% FOREACH c IN concs %>
+<div id="c<% c.id %>" style="margin: 5px; padding: 5px; border: solid 1px #999999; width: 100%; display: table" >
+  <div class="c" style="width: 45%;">
+    <% IF c.left.0 %>
+       <% c.left.0 %><b><% c.left.1 %></b><% c.left.2 %>
+    <% ELSE %>
+       <% c.left %>
+    <% END %>
+  </div>
+  <div class="c" style="width: 10%; text-align: center">
+    <input class="selector" type="checkbox" id="b<% c.id %>" name="b" value="<% c.id %>"/>
+  </div>
+  <div class="c" style="width: 45%;">
+    <% c.right %>
+  </div>
+</div>
+<% END %>
+
+<input type="submit" name="submit" value="Guardar"/>
+</form>
+<% END %>

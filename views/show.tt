@@ -1,0 +1,16 @@
+
+
+<% FOREACH c IN concs %>
+<div id="c<% c.id %>" style="margin: 5px; padding: 5px; border: solid 1px #999999; width: 100%; display: table" >
+  <div class="c" style="width: 50%;">
+    <% IF c.left.0 %>
+       <% c.left.0 %><b><% c.left.1 %></b><% c.left.2 %>
+    <% ELSE %>
+       <% c.left %>
+    <% END %>
+  </div>
+  <div class="c" style="width: 50%;">
+    <% c.right %>
+  </div>
+</div>
+<% END %>

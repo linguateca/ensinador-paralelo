@@ -78,3 +78,19 @@ li div {
   display: table-cell;
   vertical-align: middle;
 }
+
+
+
+
+.debug { 
+  margin: 20px;
+  padding: 20px;
+  background-color: #efefef;
+  border: solid 1px #aaaaaa;
+}
+
+.debug:before { 
+  content: "DEBUG INFORMATION";
+  display: block;
+  font-weight: bold;
+}

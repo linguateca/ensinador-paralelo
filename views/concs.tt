@@ -9,11 +9,6 @@
     );
 </script>
 
-<% IF mydebug %>
-   <% use Dumper %>
-   <% Dumper.dump_html(mydebug) %>
-<% END %>
-
 <p>Expressão de pesquisa: <tt><% query.left || "&mdash;" %> &bullet; <% query.right || "&mdash;" %></tt></p>
 
 <% UNLESS concs.size %>
@@ -25,7 +20,7 @@
 <div id="c<% c.id %>" style="margin: 5px; padding: 5px; border: solid 1px #999999; width: 100%; display: table" >
   <div class="c" style="width: 45%;">
     <% IF c.left.0 %>
-       <% c.left.0 %><b><% c.left.1 %></b><% c.left.2 %>
+       <% c.left.0 %><b><% c.left.1.join(" ") %></b><% c.left.2 %>
     <% ELSE %>
        <% c.left %>
     <% END %>
@@ -42,3 +37,12 @@
 <input type="submit" name="submit" value="Guardar"/>
 </form>
 <% END %>
+
+
+<% IF mydebug %>
+   <% use Dumper %>
+   <div class="debug">
+     <% Dumper.dump_html(mydebug) %>
+   </div>
+<% END %>
+

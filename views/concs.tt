@@ -42,7 +42,9 @@
 <% IF mydebug %>
    <% use Dumper %>
    <div class="debug">
-     <% Dumper.dump_html(mydebug) %>
+     <pre>
+<% Dumper.dump(mydebug) %>
+     </pre>
    </div>
 <% END %>
 

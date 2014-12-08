@@ -6,7 +6,7 @@ use Try::Tiny;
 use utf8;
 
 our $VERSION = '0.1';
-our $DEBUG = 0;
+our $DEBUG = 1;
 
 $ENV{CORPUS_REGISTRY} = config->{corpus_registry}
   if exists config->{corpus_registry};
@@ -34,11 +34,15 @@ get '/' => sub {
 #  save concordancies
 #
 post '/concs/save' => sub {
-  my $ids = param("b");
-  my $concs = session 'concs';
-  my @concs = @{$concs}[@$ids];
+    my $ids = param("b");
+    my @ids = ref($ids) eq "ARRAY" ? @$ids : ($ids);
+    my $concs = session 'concs';
+    my @concs = @{$concs}[@ids];
 
-  template 'show' => { concs => \@concs };
+    template 'show' => {
+                        concs => \@concs,
+                        ($DEBUG ? (mydebug => {concs => \@concs}) : ()),
+                       };
 };
 
 
@@ -88,7 +92,7 @@ post '/concs' => sub {
                                    left  => param("left"),
                                    right => param("right"),
                                   },
-                        ($DEBUG ? (mydebug => [$expanded_main_query, $concs]) : ()),
+                        ($DEBUG ? (mydebug => {query => $expanded_main_query, concs => $concs}) : ()),
                         };
 };
 

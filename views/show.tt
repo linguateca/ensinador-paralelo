@@ -1,10 +1,12 @@
-
+<!-- % USE Dumper % -->
 
 <% FOREACH c IN concs %>
 <div id="c<% c.id %>" style="margin: 5px; padding: 5px; border: solid 1px #999999; width: 100%; display: table" >
   <div class="c" style="width: 50%;">
     <% IF c.left.0 %>
-       <% c.left.0 %><b><% c.left.1 %></b><% c.left.2 %>
+    <% c.left.0 %><b><span
+         style="text-decoration: underline;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></b><% c.left.2 %> (<% c.left.1.join(",") %>)
+      <!-- % Dumper.dump_html(c.left.1) % -->
     <% ELSE %>
        <% c.left %>
     <% END %>
@@ -14,3 +16,16 @@
   </div>
 </div>
 <% END %>
+
+
+
+
+<% IF mydebug %>
+   <% use Dumper %>
+   <div class="debug">
+     <pre>
+<% Dumper.dump(mydebug) %>
+     </pre>
+   </div>
+<% END %>
+

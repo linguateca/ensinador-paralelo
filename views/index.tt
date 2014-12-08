@@ -61,7 +61,7 @@
       <% END %>
     </select>
   </li>
-  <li>Indique língua para exercício:
+  <li>Indique língua para procura principal:
     <select id="language" name="language">
       <option>---</option>
     </select>
